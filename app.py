@@ -4,8 +4,14 @@ from dotenv import load_dotenv
 import os
 import time
 
+
 load_dotenv()
 
+# Get API key from Streamlit Secrets or .env
+try:
+    api_key = st.secrets["GOOGLE_API_KEY"]
+except Exception:
+    api_key = os.getenv("GOOGLE_API_KEY")
 # ---------- Page setup ----------
 st.set_page_config(
     page_title="Gemini Chat",
@@ -127,12 +133,12 @@ with col1:
 
 # ---------- Generation ----------
 if generate:
-    if not api_key_input:
-        st.error("Please add your Google API key in the sidebar (or in a .env file as GOOGLE_API_KEY).")
+    if not api_key:
+        st.error("Google API Key not found. Add it to Streamlit Secrets or your .env file.")
     elif not prompt.strip():
         st.warning("Type a prompt first.")
     else:
-        client = genai.Client(api_key=api_key_input)
+        client = genai.Client(api_key=api_key)
 
         max_retries = 3
         response = None
