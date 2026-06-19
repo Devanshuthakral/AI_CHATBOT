@@ -93,12 +93,6 @@ st.markdown(
 with st.sidebar:
     st.markdown("### ⚙️ Settings")
 
-    api_key_input = st.text_input(
-        "Google API Key",
-        value=os.getenv("GOOGLE_API_KEY", ""),
-        type="password",
-        help="Loaded from .env by default. Paste a key here to override it for this session.",
-    )
 
     model = st.selectbox(
         "Model",
@@ -107,9 +101,6 @@ with st.sidebar:
     )
 
     st.markdown("---")
-    st.markdown(
-        "Get a key from [Google AI Studio](https://aistudio.google.com/apikey)."
-    )
 
 # ---------- Hero ----------
 st.markdown(
